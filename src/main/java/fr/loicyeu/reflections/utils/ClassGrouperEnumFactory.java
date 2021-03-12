@@ -33,7 +33,7 @@ public class ClassGrouperEnumFactory {
         ClassGrouper classGrouper = groupClasses.get(0).getAnnotation(ClassGrouper.class);
         String packageName = classGrouper.packageDest();
         String simpleClassName = classGrouper.groupName()+"Registry";
-        simpleClassName = simpleClassName.substring(0, 1).toLowerCase()+simpleClassName.substring(1);
+        simpleClassName = simpleClassName.substring(0, 1).toUpperCase()+simpleClassName.substring(1);
         String className = packageName + "." + simpleClassName;
 
         try {
@@ -53,8 +53,9 @@ public class ClassGrouperEnumFactory {
 
                 for(TypeElement typeElement : groupClasses) {
                     out.print("\t"+typeElement.getSimpleName().toString().toUpperCase());
-                    out.println("("+typeElement.getQualifiedName()+".class)");
+                    out.println("("+typeElement.getQualifiedName()+".class),");
                 }
+                out.println("\t;");
 
                 out.println("\tprivate final Class<?> clazz;");
                 out.println();
@@ -74,7 +75,6 @@ public class ClassGrouperEnumFactory {
             return false;
         }
 
-        System.out.println("Generated class !");
         return true;
     }
 

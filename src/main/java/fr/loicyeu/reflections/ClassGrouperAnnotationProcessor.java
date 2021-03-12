@@ -43,8 +43,6 @@ public class ClassGrouperAnnotationProcessor extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        System.out.println("YOOOOOOOOO");
-        messager.printMessage(Diagnostic.Kind.NOTE, "yooooooooooo");
         Map<String, List<TypeElement>> classes = new HashMap<>();
 
         for (Element annotatedElement : roundEnv.getElementsAnnotatedWith(ClassGrouper.class)) {
@@ -72,7 +70,6 @@ public class ClassGrouperAnnotationProcessor extends AbstractProcessor {
 
         ClassGrouperEnumFactory enumFactory = new ClassGrouperEnumFactory(classes, this.filer);
         if(enumFactory.generateCode()) {
-            messager.printMessage(Diagnostic.Kind.NOTE, "ALL GOOD");
             return false;
         }else {
             error("Unexpected exception during creation of registry.", null);
